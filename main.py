@@ -28,8 +28,9 @@ def has_article_contains(article_link: str, keywords: list):
     text.extend(tag_text)
 
     for keyword in keywords:
-        if keyword in text:
-            return True
+        for item in text:
+            if str(item).find(keyword) >= 0:
+                return True
     return False
 
 
@@ -37,6 +38,7 @@ def main():
     """This function finds keywords into full text articles represent on the main habr.com page
     """
     KEYWORDS = ['дизайн', 'фото', 'web', 'python', 'capcom']
+    # KEYWORDS = ['с помощью alerta.io']
 
     ret = requests.get("https://habr.com/ru/all/")
     soup = bs(ret.text, 'html.parser')
